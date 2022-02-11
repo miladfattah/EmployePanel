@@ -63,6 +63,7 @@
                     <a class=" nav-link fs-6" href="{{route('countries.index')}}">کشور</a>
                     <a class=" nav-link fs-6" href="{{route('states.index')}}">استان</a>
                     <a class=" nav-link fs-6" href="{{route('cities.index')}}">شهر</a>
+                    <a class=" nav-link fs-6" href="{{route('departments.index')}}">بخش</a>
                     
                 </ul>
             </li>
