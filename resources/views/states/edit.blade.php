@@ -5,20 +5,27 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header d-flex justify-content-between align-items-center">{{ __(' ویرایش کشور') }}
-                    <a href="{{route('users.index')}}" class="btn btn-link">بازگشت</a>
+                <div class="card-header d-flex justify-content-between align-items-center">{{ __('انتخاب کشور') }}
+                    <a href="{{route('states.index')}}" class="btn btn-link">بازگشت</a>
                 </div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('countries.update' , $country->id) }}">
+                    <form method="POST" action="{{ route('states.update' , $state->id) }}">
                         @csrf
                         @method('PUT')
                         <div class="row mb-3">
-                            <label for="country_code" class="col-md-4 col-form-label text-md-end">{{ __('کد کشور') }}</label>
+                            <label for="country_code" class="col-md-4 col-form-label text-md-end">{{ __(' کشور') }}</label>
 
                             <div class="col-md-6">
-                                <input id="country_code" type="text" class="form-control @error('country_code') is-invalid @enderror" name="country_code" value="{{ old('country_code' , $country->country_code ) }}" required autocomplete="country_code" autofocus>
-
+                                <select name="country_id" id="country_code">
+                                    @foreach ($countries as $country)
+                                        @if ( $country->id == $state->country->id )
+                                           <option value="{{$country->id}}" selected >{{$country->name}}</option>
+                                        @else
+                                            <option value="{{$country->id}}">{{$country->name}}</option>
+                                        @endif
+                                    @endforeach
+                                </select>
                                 @error('country_code')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -28,10 +35,10 @@
                         </div>
 
                         <div class="row mb-3">
-                            <label for="name" class="col-md-4 col-form-label text-md-end">{{ __('کشور') }}</label>
+                            <label for="name" class="col-md-4 col-form-label text-md-end">{{ __('استان') }}</label>
 
                             <div class="col-md-6">
-                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name' , $country->name) }}" required autocomplete="name" autofocus>
+                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name' ,  $state->name) }}" required autocomplete="name" autofocus>
 
                                 @error('name')
                                     <span class="invalid-feedback" role="alert">
@@ -48,14 +55,6 @@
                                 </button>
                             </div>
                         </div>
-                    </form>
-                </div>
-
-                <div class="mt-2 p-2 s">
-                    <form method="POST" action="{{route('countries.destroy' , $country->id)}}">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-danger float-left"> حذف {{$country->name}}</button>
                     </form>
                 </div>
             </div>
