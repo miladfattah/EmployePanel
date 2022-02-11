@@ -62,7 +62,7 @@
                 <ul class="navbar-nav bg-gradient-primary pr-3">
                     <a class=" nav-link fs-6" href="{{route('countries.index')}}">کشور</a>
                     <a class=" nav-link fs-6" href="{{route('states.index')}}">استان</a>
-                    <a class=" nav-link fs-6" href="">شهر</a>
+                    <a class=" nav-link fs-6" href="{{route('cities.index')}}">شهر</a>
                     
                 </ul>
             </li>

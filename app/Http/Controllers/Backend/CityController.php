@@ -4,12 +4,11 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Country ;
+use App\Models\City ;
 use App\Models\State ;
-use App\Http\Requests\StateStoreRequest ;
+use App\Http\Requests\CityStoreRequest ;
 
-
-class StateController extends Controller
+class CityController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,9 +17,8 @@ class StateController extends Controller
      */
     public function index()
     {
-        $states = State::all();
-
-        return view('states/index' , compact('states'));
+        $cities = City::all();
+        return view('cities/index' , compact('cities'));
     }
 
     /**
@@ -30,8 +28,8 @@ class StateController extends Controller
      */
     public function create()
     {
-        $countries = Country::all();
-        return view('states/create' , compact('countries' ));
+        $states = State::all();
+        return view('cities/create' , compact('states'));
     }
 
     /**
@@ -40,25 +38,24 @@ class StateController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StateStoreRequest $request)
+    public function store(CityStoreRequest $request)
     {
-        State::create($request->validated());
-        return to_route('states.index')->with('message' , 'استان با موفقیت ثبت شد');
+        City::create($request->validated());
+        return to_route('cities.index')->with('message' , 'شهر با موفقیت اضافه شد');
     }
 
-   
-   
 
+ 
     /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(State $state)
+    public function edit(City $city)
     {
-        $countries = Country::all();
-        return view('states/edit' , compact('countries' , 'state'));
+        $states = State::all();
+        return view('cities/edit' , compact('states' , 'city'));
     }
 
     /**
@@ -68,10 +65,13 @@ class StateController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(StateStoreRequest $request, State $state)
+    public function update(CityStoreRequest $request,City $city)
     {
-        $state->update($request->validated());
-        return to_route('states.index')->with('message' , 'فیلد استان تغییر یافت');
+        $city->update([
+            'state_id' => $request->state_id,
+            'name'     => $request->name
+        ]);
+        return to_route('cities.index')->with('message' , 'فیلد شهر با موفقیت ویرایش شد');
     }
 
     /**
@@ -80,9 +80,9 @@ class StateController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(State $state)
+    public function destroy(City $city)
     {
-        $state->delete();
-        return to_route('states.index')->with('message' , 'فیلد استان حذف شد');
+        $city->delete();
+        return to_route('cities.index')->with('message' , 'فیلد شهر با موفقیت حذف شد');
     }
 }
